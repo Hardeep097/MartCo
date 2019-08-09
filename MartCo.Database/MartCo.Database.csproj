@@ -49,6 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MCContext.cs" />
+    <Compile Include="Migrations\201908090251391_initial.cs" />
+    <Compile Include="Migrations\201908090251391_initial.Designer.cs">
+      <DependentUpon>201908090251391_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +65,11 @@
       <Project>{335ff8f9-cdc9-4241-a406-24043d6e97d1}</Project>
       <Name>MartCo.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201908090251391_initial.resx">
+      <DependentUpon>201908090251391_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

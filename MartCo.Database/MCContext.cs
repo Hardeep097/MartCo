@@ -10,6 +10,11 @@ namespace MartCo.Database
 {
     public class MCContext : DbContext
     {
+        public MCContext() : base("MartCoConnection")
+        {
+
+        }
+
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
     }
