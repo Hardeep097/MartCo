@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartCo.Entities", "MartCo.E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartCo.Database", "MartCo.Database\MartCo.Database.csproj", "{B543016C-1D4E-4282-B5B0-5EB6C7623754}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartCo.Services", "MartCo.Services\MartCo.Services.csproj", "{FD889FBA-7BED-4262-869B-3A1346B0E4C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B543016C-1D4E-4282-B5B0-5EB6C7623754}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B543016C-1D4E-4282-B5B0-5EB6C7623754}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B543016C-1D4E-4282-B5B0-5EB6C7623754}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD889FBA-7BED-4262-869B-3A1346B0E4C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD889FBA-7BED-4262-869B-3A1346B0E4C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD889FBA-7BED-4262-869B-3A1346B0E4C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD889FBA-7BED-4262-869B-3A1346B0E4C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

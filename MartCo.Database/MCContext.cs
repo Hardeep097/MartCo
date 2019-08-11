@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MartCo.Database
 {
-    public class MCContext : DbContext
+    public class MCContext : DbContext, IDisposable
     {
         public MCContext() : base("MartCoConnection")
         {
