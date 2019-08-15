@@ -44,5 +44,21 @@ namespace MartCo.Web.Controllers
 
             return RedirectToAction("ProductTable");
         }
+
+        [HttpGet]
+        // GET: Category
+        public ActionResult Edit(int ID)
+        {
+            var product = productsService.GetProduct(ID);
+
+            return PartialView(product);
+        }
+        [HttpPost]
+        public ActionResult Edit(Product product)
+        {
+            productsService.UpdateProduct(product);
+
+            return RedirectToAction("ProductTable");
+        }
     }
 }
