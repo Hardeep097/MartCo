@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace MartCo.Services
 {
     public class ProductsService
     {
-        public Product GetProduct(int ID)
+        public Product GetProduct(int ID) 
         {
             using(var context = new MCContext())
             {
@@ -22,7 +23,7 @@ namespace MartCo.Services
         {
             using(var context = new MCContext())
             {
-              return  context.Products.ToList();
+              return  context.Products.Include(x => x.Category).ToList();
             }
         }
         
@@ -31,6 +32,8 @@ namespace MartCo.Services
         {
             using(var context = new MCContext())
             {
+               context.Entry(product.Category).State = System.Data.Entity.EntityState.Unchanged;
+
                 context.Products.Add(product);
                 context.SaveChanges();
             }

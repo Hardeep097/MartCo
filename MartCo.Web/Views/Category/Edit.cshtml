@@ -1,6 +1,10 @@
 ﻿@model MartCo.Entities.Category
 @{
     ViewBag.Title = "Edit";
+
+    var trueChecked = Model.isFeatured ? "checked" : string.Empty;
+    var falseChecked = !Model.isFeatured ? "checked" : string.Empty;
+
 }
 
 <h2>Edit Category</h2>
@@ -16,6 +20,11 @@
     <label>Description</label>
     <input name="Description" value="@Model.Description" />
 
+    <br />
+
+    <label>Is Featured</label>
+    <input type="radio" name="isFeatured" value="True" @trueChecked/> Yes
+    <input type="radio" name="isFeatured" value="False" @falseChecked/> No
     <br />
 
     <button type="submit">Save</button>

@@ -25,6 +25,14 @@ namespace MartCo.Services
               return  context.Categories.ToList();
             }
         }
+
+        public List<Category> GetFeaturedCategories()
+        {
+            using(var context = new MCContext())
+            {
+              return  context.Categories.Where(x => x.isFeatured && x.ImageURL != null).ToList();
+            }
+        }
         
 
         public void SaveCategory(Category category)

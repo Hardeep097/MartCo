@@ -14,6 +14,58 @@
     <input name="Description" />
 
     <br />
+    
+    <label>Image</label>
+    <input name="ImageURL"id="ImageURL" type="hidden" />
+    <input name="Image" id="imageUpload" type="file", accept=".png, .jpg" />
 
+    <div class="thumb">
+        <img id="categoryImage" />
+
+    </div>
+    <br />
+
+    <label>Is Featured</label>
+    <input type="radio" name="isFeatured" value="True" /> Yes
+    <input type="radio" name="isFeatured" value="False" /> No
+    <br />
     <button type="submit">Save</button>
 </form>
+
+<script>
+    //send image to server 
+    $("#imageUpload").change(function () {
+
+        var element = this;
+        var formData = new FormData();
+
+        var totalFiles = element.files.length;
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("Photo", file);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/Shared/UploadImage',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false
+
+        })
+            .done(function (response) {
+                debugger;
+                console.log(response);
+
+                if (response.Success) {
+                    $("#ImageURL").val(response.ImageURL)
+                    $("#categoryImage").attr("src", response.ImageURL)
+                }
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+    })
+</script>
