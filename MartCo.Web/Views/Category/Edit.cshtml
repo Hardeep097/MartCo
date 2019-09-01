@@ -5,29 +5,74 @@
     var trueChecked = Model.isFeatured ? "checked" : string.Empty;
     var falseChecked = !Model.isFeatured ? "checked" : string.Empty;
 
+    var imageURL = !String.IsNullOrEmpty(Model.ImageURL) ? Model.ImageURL : "/Content/images/image-box/category_ph.png";
+
 }
 
 <h2>Edit Category</h2>
 
-<form method="post">
+<form method="post" id="editCategory">
     <input type="hidden" name="ID" value="@Model.ID" />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label>Name</label>
+                <input name="Name" value="@Model.Name" />
+            </div>
 
-    <label>Name</label>
-    <input name="Name" value="@Model.Name" />
+            <div class="form-group">
+                <label>Description</label>
+                <input name="Description" value="@Model.Description" />
+            </div>
 
-    <br />
+            <div class="form-group">
+                <label>Image</label>
+                <input type="hidden" id="ImageURL" name="ImageURL" value="@Model.ImageURL" />
+                <input name="Image" id="imageUpload" type="file" , accept=".png, .jpg" class="form-control" />
+            </div>
 
-    <label>Description</label>
-    <input name="Description" value="@Model.Description" />
+            <div class="form-group">
+                <label>Is Featured</label>
+                <div class="input-group">
+                    <div class="radio form-control">
+                        <label> <input type="radio" name="isFeatured" value="True" @trueChecked /> Yes</label>
+                    </div>
+                    <div class="radio form-control">
+                        <label><input type="radio" name="isFeatured" value="False" @falseChecked /> No</label>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <br />
+        <div class="col col-md-4">
+            <div class="thumb">
+                <img src="@imageURL" class="img-thumbnail img-fluid" id="categoryImage" />
+            </div>
 
-    <label>Is Featured</label>
-    <input type="radio" name="isFeatured" value="True" @trueChecked/> Yes
-    <input type="radio" name="isFeatured" value="False" @falseChecked/> No
-    <br />
+        </div>
+    </div>
 
-    <button type="submit">Save</button>
+        <button id="updateBtn" type="button" class="btn btn-primary">Update</button>
 </form>
+
+<script>
+    $("#updateBtn").click(function () {
+
+
+        $.ajax({
+            type: 'Post',
+            url: '/Category/Edit',
+            data: $("#editCategory").serialize()
+        })
+            .done(function (response) {
+                $("#tableContainer").html(response);
+                $("#actionContainer").html("");
+
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+    });
+</script>
 
 

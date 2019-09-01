@@ -1,0 +1,34 @@
+﻿@model MartCo.Web.ViewModels.CheckoutViewModels
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<h2>Checkout</h2>
+
+@if (Model != null)
+{
+    if (Model.CartProducts != null && Model.CartProducts.Count > 0)
+    {
+        <div>
+            @foreach (var Product in Model.CartProducts)
+            {
+                var productQuantity = Model.CartProductIDs.Where(x => x == Product.ID).Count();
+                <div>
+                  Name: @Product.Name - Price: @Product.Price - Quantity: - @productQuantity - Total Price: @(Product.Price * productQuantity)
+
+                </div>
+            }
+        </div>
+
+        <div>
+            Total Bill : @Model.CartProducts.Sum(x => x.Price * Model.CartProductIDs.Where(productID => productID == x.ID).Count())
+        </div>
+    }
+    else
+    {
+        <div>
+            No Products in Cart.
+        </div>
+    }
+}
+

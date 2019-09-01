@@ -11,7 +11,7 @@ namespace MartCo.Web.Controllers
 {
     public class ProductController : Controller
     {
-        ProductsService productsService = new ProductsService();
+        //ProductsService productsService = new ProductsService();
 
 
         // GET: Product
@@ -20,15 +20,22 @@ namespace MartCo.Web.Controllers
             return View();
         }
 
-        public ActionResult ProductTable(string search)
-        {
-            var products = productsService.GetProducts();
+        public ActionResult ProductTable(string search, int? pageNo )
+        { 
+            ProductSearchViewModel model = new ProductSearchViewModel();
+
+            model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ?  pageNo.Value : 1 : 1;
+
+            model.Products = ProductsService.Instance.GetProducts(model.PageNo.Value);
+
+
             if (!string.IsNullOrEmpty(search))
             {
-                products = products.Where(p => p.Name != null && p.Name.ToLower().Contains(search.ToLower())).ToList();
+                model.SearchTerm = search;
+                model.Products = model.Products.Where(p => p.Name != null && p.Name.ToLower().Contains(search.ToLower())).ToList();
             }
 
-            return PartialView(products);
+            return PartialView(model);
         }
 
         [HttpGet]
@@ -53,7 +60,7 @@ namespace MartCo.Web.Controllers
           //  newProduct.Category = model.CategoryID;
             newProduct.Category = categoriesService.GetCategory(model.CategoryID);
 
-            productsService.SaveProduct(newProduct);
+            ProductsService.Instance.SaveProduct(newProduct);
 
             return RedirectToAction("ProductTable");
         }
@@ -61,14 +68,14 @@ namespace MartCo.Web.Controllers
         [HttpGet]
         public ActionResult Edit(int ID)
         {
-            var product = productsService.GetProduct(ID);
+            var product = ProductsService.Instance.GetProduct(ID);
 
             return PartialView(product);
         }
         [HttpPost]
         public ActionResult Edit(Product product)
         {
-            productsService.UpdateProduct(product);
+            ProductsService.Instance.UpdateProduct(product);
 
             return RedirectToAction("ProductTable");
         }
@@ -76,7 +83,7 @@ namespace MartCo.Web.Controllers
         [HttpPost]
         public ActionResult Delete(int ID)
         {
-            productsService.DeleteProduct(ID);
+            ProductsService.Instance.DeleteProduct(ID);
 
             return RedirectToAction("ProductTable");
         }

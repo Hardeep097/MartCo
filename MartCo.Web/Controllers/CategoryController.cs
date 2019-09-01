@@ -1,5 +1,6 @@
 ﻿using MartCo.Entities;
 using MartCo.Services;
+using MartCo.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,23 @@ namespace MartCo.Web.Controllers
             var categories = categoryService.GetCategories();
             return View(categories);
         }
+
+        public ActionResult CategoryTable(string search)
+        {
+            CategorySearchViewModel model = new CategorySearchViewModel
+            {
+                Categories = categoryService.GetCategories()
+            };
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                model.SearchTerm = model.Categories.Where(p => p.Name != null && p.Name.ToLower().Contains(search.ToLower())).ToList();
+            }
+
+            return PartialView(model);
+        }
+
+
         [HttpGet]
         // GET: Category
         public ActionResult Create()
@@ -31,7 +49,7 @@ namespace MartCo.Web.Controllers
         {
             categoryService.SaveCategory(category);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("CategoryTable");
         }
 
         [HttpGet]
@@ -40,14 +58,14 @@ namespace MartCo.Web.Controllers
         {
             var category = categoryService.GetCategory(ID);
 
-            return View(category);
+            return PartialView(category); ;
         }
         [HttpPost]
         public ActionResult Edit(Category category)
         {
             categoryService.UpdateCategory(category);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("CategoryTable");
         }
 
         [HttpGet]
