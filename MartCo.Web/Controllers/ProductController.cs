@@ -42,23 +42,23 @@ namespace MartCo.Web.Controllers
         // GET: Category
         public ActionResult Create()
         {
-            CategoriesService categoriesService = new CategoriesService();
+           // CategoriesService categoriesService = new CategoriesService();
 
-            var categories = categoriesService.GetCategories();
+            var categories = CategoriesService.Instance.GetCategories();
 
             return PartialView(categories);
         }
         [HttpPost]
-        public ActionResult Create(NewCategoryViewModel model)
+        public ActionResult Create(NewProductViewModel model)
         {
-            CategoriesService categoriesService = new CategoriesService();
+            //CategoriesService categoriesService = new CategoriesService();
 
             var newProduct = new Product();
             newProduct.Name = model.Name;
             newProduct.Description = model.Description;
             newProduct.Price = model.Price;
           //  newProduct.Category = model.CategoryID;
-            newProduct.Category = categoriesService.GetCategory(model.CategoryID);
+            newProduct.Category = CategoriesService.Instance.GetCategory(model.CategoryID);
 
             ProductsService.Instance.SaveProduct(newProduct);
 
@@ -68,17 +68,48 @@ namespace MartCo.Web.Controllers
         [HttpGet]
         public ActionResult Edit(int ID)
         {
+            EditProductViewModel model = new EditProductViewModel();
+
             var product = ProductsService.Instance.GetProduct(ID);
 
-            return PartialView(product);
+            model.ID = product.ID;
+            model.Name = product.Name;
+            model.Description = product.Description;
+            model.Price = product.Price;
+            model.CategoryID = product.Category != null ? product.Category.ID : 0;
+
+            model.AvailableCategories = CategoriesService.Instance.GetCategories();
+
+            return PartialView(model);
         }
         [HttpPost]
-        public ActionResult Edit(Product product)
+        public ActionResult Edit(EditProductViewModel model)
         {
-            ProductsService.Instance.UpdateProduct(product);
+            var existingProduct = ProductsService.Instance.GetProduct(model.ID);
+            existingProduct.Name = model.Name;
+            existingProduct.Description = model.Description;
+            existingProduct.Price = model.Price;
+            existingProduct.Category = CategoriesService.Instance.GetCategory(model.CategoryID);
+
+            ProductsService.Instance.UpdateProduct(existingProduct);
 
             return RedirectToAction("ProductTable");
         }
+
+        //[HttpGet]
+        //public ActionResult Edit(int ID)
+        //{
+        //    var product = ProductsService.Instance.GetProduct(ID);
+
+        //    return PartialView(product);
+        //}
+        //[HttpPost]
+        //public ActionResult Edit(Product product)
+        //{
+        //    ProductsService.Instance.UpdateProduct(product);
+
+        //    return RedirectToAction("ProductTable");
+        //}
 
         [HttpPost]
         public ActionResult Delete(int ID)

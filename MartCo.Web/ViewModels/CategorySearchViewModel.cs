@@ -10,6 +10,6 @@ namespace MartCo.Web.ViewModels
     {
         public List<Category> Categories { get; set; }
 
-        public List<Category> SearchTerm { get; set; }
+        public String SearchTerm { get; set; }
     }
 }

@@ -191,6 +191,8 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CategorySearchViewModel.cs" />
     <Compile Include="ViewModels\CheckoutViewModels.cs" />
+    <Compile Include="ViewModels\EditCategoryViewModel.cs" />
+    <Compile Include="ViewModels\EditProductViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels.cs" />
     <Compile Include="ViewModels\NewCategoryViewModel.cs" />
     <Compile Include="ViewModels\ProductSearchViewModel.cs" />

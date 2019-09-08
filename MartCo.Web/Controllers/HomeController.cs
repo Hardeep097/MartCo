@@ -10,13 +10,14 @@ namespace MartCo.Web.Controllers
 {
     public class HomeController : Controller
     {
-        CategoriesService categoriesService = new CategoriesService();
+        // CategoriesService categoriesService = new CategoriesService();
 
+        
 
         public ActionResult Index()
         {
             HomeViewModels model = new HomeViewModels();
-            model.FeaturedCategories = categoriesService.GetFeaturedCategories();
+            model.FeaturedCategories = CategoriesService.Instance.GetFeaturedCategories();
 
             return View(model);
         }

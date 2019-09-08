@@ -5,18 +5,14 @@ using System.Web;
 
 namespace MartCo.Web.ViewModels
 {
-    public class NewCategoryViewModel
+    public class EditCategoryViewModel
     {
 
-        public String Name { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
         public string ImageURL { get; set; }
         public bool isFeatured { get; set; }
-
-        //public decimal Price { get; set; }
-
-
-        //public int CategoryID { get; set; }
 
     }
 }

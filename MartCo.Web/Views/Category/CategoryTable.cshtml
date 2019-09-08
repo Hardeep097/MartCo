@@ -9,7 +9,7 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label>Search</label>
-                    <input class="form-control" id="searchTxt" name="Search" @*value="@Model.SearchTerm"*@ />
+                    <input class="form-control" id="searchTxt" name="Search" value="@Model.SearchTerm" />
                 </div>
             </div>
             <div class="col-md-4">
@@ -41,7 +41,7 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model.Categories != null )
+            @if (Model.Categories != null && Model.Categories.Count > 0 )
             {
 
                 foreach (var category in Model.Categories)
@@ -49,7 +49,7 @@
                 <tr>
                     <td>@category.Name</td>
                     <td>
-                        @*@category.Products.Count*@
+                        @category.Products.Count
 
                     </td>
                     <td>
@@ -59,6 +59,10 @@
                     </td>
                 </tr>
                 }
+            }
+            else
+            {
+                <tr><td colspan="3" class="text-danger">No Categories Found</td></tr>
             }
         </tbody>
     </table>
@@ -72,7 +76,7 @@
             var searchValue = $("#searchTxt").val();
 
             $.ajax({
-                url: '/Category/CategoryTable',
+                url: '@Url.Action("CategoryTable", "Category")', //'/Category/CategoryTable'
                 data: {
                     search: searchValue
                 }
@@ -89,7 +93,7 @@
         $("#NewBtn").click(function () {
 
             $.ajax({
-                url: '/Category/Create',
+                url: '@Url.Action("Create","Category")',//'/Category/Create',
             })
                 .done(function (response) {
                     $("#actionContainer").html(response);
@@ -103,7 +107,7 @@
         $(".editBtn").click(function () {
 
             $.ajax({
-                url: '/Category/Edit',
+                url: '@Url.Action("Edit","Category")',//'/Category/Edit',
                 data: {
                     ID: $(this).attr("data-id")
                 }
@@ -128,7 +132,7 @@
 
                 $.ajax({
                     type: 'Post',
-                    url: '/Category/Delete',
+                    url: '@Url.Action("Delete","Category")',//'/Category/Delete',
                     data: {
                         ID: $(this).attr("data-id")
                     }

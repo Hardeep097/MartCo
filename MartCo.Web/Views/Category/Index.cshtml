@@ -2,28 +2,29 @@
 @{
     ViewBag.Title = "Index";
 }
+<section class="flat-row flat-iconbox">
+    <div class="container">
+        <div class="row">
+            <div class="title-section">
+                <h2 class="title">
+                    Categories
+                </h2>
+            </div>
+        </div>
+        <div id="tableContainer">
+            @{
 
-<div class="title-section">
-    <h2 class="title">
-        Categories
-    </h2>
-</div>
+                Html.RenderAction("CategoryTable");
+                //  Html.RenderAction("Create");
 
+            }
+        </div>
+        <hr />
 
-<div class="container">
-    <div id="tableContainer">
-        @{
+        <div id="actionContainer">
 
-            Html.RenderAction("CategoryTable");
-            //  Html.RenderAction("Create");
-
-        }
+        </div>
     </div>
-    <hr />
-
-    <div id="actionContainer">
-
-    </div>
-</div>
+</section>
 
 
