@@ -34,7 +34,7 @@ namespace MartCo.Web.Controllers
         [HttpGet]
         // GET: Category
         public ActionResult Index()
-        {
+         {
             //var categories = CategoriesService.Instance.GetCategories();
             return View();
         }
@@ -46,7 +46,7 @@ namespace MartCo.Web.Controllers
                 Categories = CategoriesService.Instance.GetCategories( )
             };
 
-            if (!string.IsNullOrEmpty(search))
+            if (!string.IsNullOrEmpty(search)) 
             {
                 model.SearchTerm = search;
 

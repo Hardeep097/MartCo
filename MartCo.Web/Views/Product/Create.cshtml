@@ -30,6 +30,7 @@
         <input class="form-control" name="Price" />
     </div>
     <button id="saveBtn" type="button" class="btn btn-primary">Save</button>
+    <button id="cancelBtn" type="button" class="btn btn-primary">Cancel</button>
 </form>
 
 
@@ -50,5 +51,12 @@
             .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Fail");
             });
+    });
+
+    $("#cancelBtn").click(function () {
+
+        $("#actionContainer").html("");
+        focusAction("tableContainer");
+
     });
 </script>

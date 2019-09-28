@@ -16,10 +16,13 @@
                 <div class="form-group">
                     <label>Action</label>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4 pr-0">
                             <button class="btn btn-primary form-control" type="button" id="SearchBtn">Search</button>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4 pr-0">
+                            <button class="btn btn-primary form-control" type="button" id="ResetBtn">Reset</button>
+                        </div>
+                        <div class="col-md-4 pr-0">
                             <button class="btn btn-primary form-control" type="button" id="NewBtn">New</button>
                         </div>
                     </div>
@@ -35,9 +38,9 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <td>Category Name</td>
-                <td>Products</td>
-                <td class="wrap-td">Action</td>
+                <th class="font-weight-bold">Category Name</th>
+                <th class="font-weight-bold">Products</th>
+                <th class="wrap-td font-weight-bold"  >Action</th>
             </tr>
         </thead>
         <tbody>
@@ -49,7 +52,7 @@
                 <tr>
                     <td>@category.Name</td>
                     <td>
-                        @category.Products.Count
+                     @*   @category.Products.Count*@
 
                     </td>
                     <td>
@@ -90,6 +93,24 @@
                 });
         });
 
+        $("#ResetBtn").click(function () {
+            var searchValue = '';
+
+            $.ajax({
+                url: '@Url.Action("CategoryTable", "Category")', //'/Category/CategoryTable'
+                data: {
+                    search: searchValue
+                }
+            })
+                .done(function (response) {
+                    $("#tableContainer").html(response);
+                    
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Fail");
+                });
+        });
+
         $("#NewBtn").click(function () {
 
             $.ajax({
@@ -97,7 +118,7 @@
             })
                 .done(function (response) {
                     $("#actionContainer").html(response);
-                   focusAction();
+                    focusAction("actionContainer");
                 })
                 .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("Fail");
@@ -114,7 +135,8 @@
             })
                 .done(function (response) {
                     $("#actionContainer").html(response);
-                    focusAction();
+
+                    focusAction("actionContainer");
 
                 })
                 .fail(function (XMLHttpRequest, textStatus, errorThrown) {
@@ -148,15 +170,6 @@
             }
 
         });
-
-
-        function focusAction() {
-            $('html, body').animate({
-                scrollTop: $("#actionContainer").offset().top - 100
-            }, 1000);
-        }
-
-
 
     });
 

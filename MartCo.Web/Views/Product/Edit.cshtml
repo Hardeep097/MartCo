@@ -1,4 +1,4 @@
-﻿@model Product
+﻿@model MartCo.Web.ViewModels.EditProductViewModel
 @{
     ViewBag.Title = "Edit";
 }
@@ -6,24 +6,27 @@
 <h2>Edit Product</h2>
 
 <form method="post" id="editProduct">
-    <input name="ID" type="hidden" value="@Model.ID"/>
+    <input name="ID" type="hidden" value="@Model.ID" />
+    <div class="form-group">
+        <label>Name</label>
+        <input class="form-control" name="Name" value="@Model.Name" />
 
-    <label>Name</label>
-    <input name="Name" value="@Model.Name"/>
+        <br />
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <input class="form-control" name="Description" value="@Model.Description" />
 
-    <br />
+        <br />
+    </div>
+    <div class="form-group">
+        <label>Price</label>
+        <input class="form-control" name="Price" value="@Model.Price" />
 
-    <label>Description</label>
-    <input name="Description" value="@Model.Description" />
-
-    <br />
-
-    <label>Price</label>
-    <input name="Price" value="@Model.Price"/>
-
-    <br />
-
-    <button id="updateBtn" type="button">Update</button>
+        <br />
+    </div>
+        <button id="updateBtn" type="button" class="btn btn-primary">Update</button>
+        <button id="cancelBtn" type="button" class="btn btn-primary">Cancel</button>
 </form>
 
 <script>
@@ -43,5 +46,13 @@
             .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Fail");
             });
+    });
+
+    $("#cancelBtn").click(function () {
+
+        $("#actionContainer").html("");
+        focusAction("tableContainer");
+
+            
     });
 </script>

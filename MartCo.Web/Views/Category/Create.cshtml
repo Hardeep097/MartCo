@@ -84,6 +84,7 @@
     </div>
 
     <button id="saveBtn" type="button" class="btn btn-primary">Save</button>
+    <button id="cancelBtn" type="button" class="btn btn-primary">Cancel</button>
 </form>
 
 <script>
@@ -133,10 +134,17 @@
             .done(function (response) {
                 $("#tableContainer").html(response);
                 $("#actionContainer").html("");
+                focusAction("tableContainer");
 
             })
             .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Fail");
             });
+    });
+
+    $("#cancelBtn").click(function () {
+        $("#actionContainer").html(" ");
+        focusAction("tableContainer");
+
     });
 </script>
